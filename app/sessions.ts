@@ -1,5 +1,5 @@
 // app/sessions.ts
-import { createCookieSessionStorage } from '@remix-run/node'; // or cloudflare/deno
+import { createCookieSessionStorage, Session } from '@remix-run/node'; // or cloudflare/deno
 
 const { getSession, commitSession, destroySession } =
   createCookieSessionStorage({
@@ -22,4 +22,9 @@ const { getSession, commitSession, destroySession } =
     },
   });
 
+  export const getSessionSimplified = async (request :Request):Promise<Session> => {
+    const session = await getSession(request.headers.get('Cookie'));
+    return session;
+  };
+  
 export { getSession, commitSession, destroySession };
